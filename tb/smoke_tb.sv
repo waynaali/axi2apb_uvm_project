@@ -1,39 +1,58 @@
-`timescale 1ns/1ps
+module uvm_tb;
 
-module smoke_tb;
-
-    parameter AXI_ADDR_WIDTH = 32;
-    parameter AXI_DATA_WIDTH = 32;
-    parameter AXI_USER_WIDTH = 6;
-    parameter AXI_ID_WIDTH   = 6;
-    parameter APB_ADDR_WIDTH = 32;
-    parameter APB_DATA_WIDTH = 32;
+    // =========================================================
+    // Clock and Reset
+    // =========================================================
 
     logic clk;
     logic rst_n;
     logic test_en;
 
-    AXI_BUS #(
-        .AXI_ADDR_WIDTH (AXI_ADDR_WIDTH),
-        .AXI_DATA_WIDTH (AXI_DATA_WIDTH),
-        .AXI_ID_WIDTH   (AXI_ID_WIDTH),
-        .AXI_USER_WIDTH (AXI_USER_WIDTH)
-    ) axi();
 
-    APB_BUS #(
-        .APB_ADDR_WIDTH (APB_ADDR_WIDTH),
-        .APB_DATA_WIDTH (APB_DATA_WIDTH)
-    ) apb();
+    // Clock generation
+    initial begin
+        clk = 1'b0;
 
+        forever begin
+            #5 clk = ~clk;
+        end
+    end
+
+
+    // Reset generation
+    initial begin
+        rst_n = 1'b0;
+
+        repeat (5) @(posedge clk);
+
+        rst_n = 1'b1;
+    end
+
+
+    // Test enable
+    initial begin
+        test_en = 1'b0;
+    end
+
+
+    // =========================================================
+    // AXI and APB Interfaces
+    // =========================================================
+
+    AXI_BUS axi();
+    APB_BUS apb();
+
+
+    // Connect common clock to interfaces
+    assign axi.clk = clk;
+    assign apb.clk = clk;
+
+
+    // =========================================================
     // DUT
-    axi2apb_wrap #(
-        .AXI_ADDR_WIDTH (AXI_ADDR_WIDTH),
-        .AXI_DATA_WIDTH (AXI_DATA_WIDTH),
-        .AXI_USER_WIDTH (AXI_USER_WIDTH),
-        .AXI_ID_WIDTH   (AXI_ID_WIDTH),
-        .APB_ADDR_WIDTH (APB_ADDR_WIDTH),
-        .APB_DATA_WIDTH (APB_DATA_WIDTH)
-    ) dut (
+    // =========================================================
+
+    axi2apb_wrap dut (
         .clk_i      (clk),
         .rst_ni     (rst_n),
         .test_en_i  (test_en),
@@ -42,129 +61,62 @@ module smoke_tb;
         .apb_master (apb)
     );
 
-    // Clock
-    initial begin
-        clk = 0;
-        forever #5 clk = ~clk;
+
+    // =========================================================
+    // APB DEBUG MONITOR
+    // =========================================================
+
+initial begin
+    forever begin
+        @(posedge clk);
+
+        if (apb.psel && apb.penable) begin
+            $display(
+                "TIME=%0t | APB: PSEL=%b PENABLE=%b PWRITE=%b ADDR=%h DATA=%h READY=%b",
+                $time,
+                apb.psel,
+                apb.penable,
+                apb.pwrite,
+                apb.paddr,
+                apb.pwdata,
+                apb.pready
+            );
+        end
     end
+end
 
-    // Simple APB response
+        
+
+ 
+
+
+    // =========================================================
+    // UVM CONFIGURATION
+    // =========================================================
+
     initial begin
-        apb.pready  = 1'b1;
-        apb.prdata  = 32'h1234_5678;
-        apb.pslverr = 1'b0;
-    end
 
-    // Reset + smoke
-    initial begin
-        test_en = 1'b0;
+        // Give AXI virtual interface to UVM
+        uvm_config_db #(virtual AXI_BUS)::set(
+            null,
+            "*",
+            "axi_vif",
+            axi
+        );
 
-        // Initialize AXI inputs
-        axi.aw_id    = '0;
-        axi.aw_addr  = '0;
-        axi.aw_len   = '0;
-        axi.aw_size  = 3'd2;
-        axi.aw_burst = 2'b01;
-        axi.aw_lock  = 1'b0;
-        axi.aw_cache = '0;
-        axi.aw_prot  = '0;
-        axi.aw_region = '0;
-        axi.aw_user  = '0;
-        axi.aw_qos   = '0;
-        axi.aw_valid = 1'b0;
 
-        axi.w_data  = '0;
-        axi.w_strb  = '0;
-        axi.w_last  = 1'b1;
-        axi.w_user  = '0;
-        axi.w_valid = 1'b0;
+        // Give APB virtual interface to UVM
+        uvm_config_db #(virtual APB_BUS)::set(
+            null,
+            "*",
+            "apb_vif",
+            apb
+        );
 
-        axi.b_ready = 1'b1;
 
-        axi.ar_id    = '0;
-        axi.ar_addr  = '0;
-        axi.ar_len   = '0;
-        axi.ar_size  = 3'd2;
-        axi.ar_burst = 2'b01;
-        axi.ar_lock  = 1'b0;
-        axi.ar_cache = '0;
-        axi.ar_prot  = '0;
-        axi.ar_region = '0;
-        axi.ar_user  = '0;
-        axi.ar_qos   = '0;
-        axi.ar_valid = 1'b0;
+        // Start UVM test
+        run_test("axi2apb_test");
 
-        axi.r_ready = 1'b1;
-
-        // Reset
-        rst_n = 1'b0;
-        repeat (3) @(posedge clk);
-
-        rst_n = 1'b1;
-        repeat (3) @(posedge clk);
-
-        $display("======================================");
-        $display(" AXI2APB SMOKE TEST STARTED");
-        $display("======================================");
-
-        // -------------------------
-        // Simple AXI WRITE
-        // -------------------------
-        @(posedge clk);
-
-        axi.aw_id    <= 6'd1;
-        axi.aw_addr  <= 32'h0000_0010;
-        axi.aw_valid <= 1'b1;
-
-        axi.w_data   <= 32'hDEAD_BEEF;
-        axi.w_strb   <= 4'b1111;
-        axi.w_last   <= 1'b1;
-        axi.w_valid  <= 1'b1;
-
-        wait (axi.aw_ready && axi.w_ready);
-
-        @(posedge clk);
-
-        axi.aw_valid <= 1'b0;
-        axi.w_valid  <= 1'b0;
-
-        $display("WRITE transaction sent");
-
-        wait (axi.b_valid);
-
-        $display("WRITE RESPONSE received: BRESP=%0d",
-                 axi.b_resp);
-
-        @(posedge clk);
-
-        // -------------------------
-        // Simple AXI READ
-        // -------------------------
-        axi.ar_id    <= 6'd2;
-        axi.ar_addr  <= 32'h0000_0020;
-        axi.ar_valid <= 1'b1;
-
-        wait (axi.ar_ready);
-
-        @(posedge clk);
-
-        axi.ar_valid <= 1'b0;
-
-        $display("READ transaction sent");
-
-        wait (axi.r_valid);
-
-        $display("READ RESPONSE received: RDATA=%h",
-                 axi.r_data);
-
-        @(posedge clk);
-
-        $display("======================================");
-        $display(" AXI2APB SMOKE TEST FINISHED");
-        $display("======================================");
-
-        #20;
-        $finish;
     end
 
 endmodule

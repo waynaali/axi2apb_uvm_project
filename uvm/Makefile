@@ -1,11 +1,12 @@
 VCS = vcs
-TOP = smoke_tb
+TOP = uvm_tb
 FLIST = build.flist
 
 VCS_OPTS = -full64 \
            -sverilog \
            -timescale=1ns/1ps \
            -debug_access+all \
+	   -ntb_opts uvm-1.2 \
            -kdb \
            -lca \
            -l compile.log

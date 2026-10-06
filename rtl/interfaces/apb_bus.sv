@@ -2,6 +2,7 @@ interface APB_BUS #(
     parameter int unsigned APB_ADDR_WIDTH = 32,
     parameter int unsigned APB_DATA_WIDTH = 32
 );
+    logic clk;
 
     logic                        penable;
     logic                        pwrite;

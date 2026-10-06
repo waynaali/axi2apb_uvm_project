@@ -1,0 +1,9 @@
+csrc/
+simv*
+*.log
+*.vpd
+*.vcd
+ucli.key
+DVEfiles/
+vc_hdrs.h
+*.daidir/

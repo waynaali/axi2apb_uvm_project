@@ -4,7 +4,7 @@ interface AXI_BUS #(
     parameter int unsigned AXI_ID_WIDTH   = 6,
     parameter int unsigned AXI_USER_WIDTH = 6
 );
-
+    logic clk;
     // -------------------------
     // Write Address Channel
     // -------------------------
