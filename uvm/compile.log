@@ -1,0 +1,86 @@
+Command: vcs -full64 -sverilog -timescale=1ns/1ps -debug_access+all -kdb -lca -l \
+compile.log -f build.flist -top smoke_tb
+                         Chronologic VCS (TM)
+         Version L-2016.06_Full64 -- Mon Oct  5 21:09:24 2026
+               Copyright (c) 1991-2016 by Synopsys Inc.
+                         ALL RIGHTS RESERVED
+
+This program is proprietary and confidential information of Synopsys Inc.
+and may be used and disclosed only as authorized in a license agreement
+controlling such use and disclosure.
+
+
+Warning-[LCA_FEATURES_ENABLED] Usage warning
+  LCA features enabled by '-lca' argument on the command line.  For more 
+  information regarding list of LCA features please refer to Chapter "LCA 
+  features" in the VCS/VCS-MX Release Notes
+
+Parsing design file '../rtl/interfaces/axi_bus.sv'
+Parsing design file '../rtl/interfaces/apb_bus.sv'
+Parsing design file '../rtl/includes/axi_single_slice.sv'
+Parsing design file '../rtl/includes/axi_aw_buffer.sv'
+Parsing design file '../rtl/includes/axi_w_buffer.sv'
+Parsing design file '../rtl/includes/axi_ar_buffer.sv'
+Parsing design file '../rtl/includes/axi_r_buffer.sv'
+Parsing design file '../rtl/includes/axi_b_buffer.sv'
+Parsing design file '../rtl/includes/axi_slice.sv'
+Parsing design file '../rtl/includes/axi_slice_wrap.sv'
+Parsing design file '../rtl/axi2apb.sv'
+Parsing design file '../rtl/axi2apb_64_32.sv'
+Parsing design file '../rtl/axi2apb_wrap.sv'
+Parsing design file '../tb/smoke_tb.sv'
+Top Level Modules:
+       smoke_tb
+
+Error-[CFCILFBI] Cannot find cell in liblist
+../rtl/includes/axi_single_slice.sv, 37
+  Cell 'fifo' cannot be found in liblist for binding instance.
+  Liblist: work
+  Config rule: global default liblist
+  Source Info: fifo #(.FALL_THROUGH(1'b0), .DATA_WIDTH(DATA_WIDTH), 
+  .DEPTH(BUFFER_DEPTH)) i_fifo( .clk_i (clk_i),  .rst_ni (rst_ni),  .flush_i 
+  (1'b0),  .testmode_i (testmode ...
+
+
+Error-[CFCILFBI] Cannot find cell in liblist
+../rtl/includes/axi_single_slice.sv, 37
+  Cell 'fifo' cannot be found in liblist for binding instance.
+  Liblist: work
+  Config rule: global default liblist
+  Source Info: fifo #(.FALL_THROUGH(1'b0), .DATA_WIDTH(DATA_WIDTH), 
+  .DEPTH(BUFFER_DEPTH)) i_fifo( .clk_i (clk_i),  .rst_ni (rst_ni),  .flush_i 
+  (1'b0),  .testmode_i (testmode ...
+
+
+Error-[CFCILFBI] Cannot find cell in liblist
+../rtl/includes/axi_single_slice.sv, 37
+  Cell 'fifo' cannot be found in liblist for binding instance.
+  Liblist: work
+  Config rule: global default liblist
+  Source Info: fifo #(.FALL_THROUGH(1'b0), .DATA_WIDTH(DATA_WIDTH), 
+  .DEPTH(BUFFER_DEPTH)) i_fifo( .clk_i (clk_i),  .rst_ni (rst_ni),  .flush_i 
+  (1'b0),  .testmode_i (testmode ...
+
+
+Error-[CFCILFBI] Cannot find cell in liblist
+../rtl/includes/axi_single_slice.sv, 37
+  Cell 'fifo' cannot be found in liblist for binding instance.
+  Liblist: work
+  Config rule: global default liblist
+  Source Info: fifo #(.FALL_THROUGH(1'b0), .DATA_WIDTH(DATA_WIDTH), 
+  .DEPTH(BUFFER_DEPTH)) i_fifo( .clk_i (clk_i),  .rst_ni (rst_ni),  .flush_i 
+  (1'b0),  .testmode_i (testmode ...
+
+
+Error-[CFCILFBI] Cannot find cell in liblist
+../rtl/includes/axi_single_slice.sv, 37
+  Cell 'fifo' cannot be found in liblist for binding instance.
+  Liblist: work
+  Config rule: global default liblist
+  Source Info: fifo #(.FALL_THROUGH(1'b0), .DATA_WIDTH(DATA_WIDTH), 
+  .DEPTH(BUFFER_DEPTH)) i_fifo( .clk_i (clk_i),  .rst_ni (rst_ni),  .flush_i 
+  (1'b0),  .testmode_i (testmode ...
+
+1 warning
+5 errors
+CPU time: .729 seconds to compile

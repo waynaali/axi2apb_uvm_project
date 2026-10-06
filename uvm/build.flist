@@ -1,0 +1,17 @@
+../rtl/interfaces/axi_bus.sv
+../rtl/interfaces/apb_bus.sv
+
+../rtl/includes/axi_single_slice.sv
+../rtl/includes/axi_aw_buffer.sv
+../rtl/includes/axi_w_buffer.sv
+../rtl/includes/axi_ar_buffer.sv
+../rtl/includes/axi_r_buffer.sv
+../rtl/includes/axi_b_buffer.sv
+../rtl/includes/axi_slice.sv
+../rtl/includes/axi_slice_wrap.sv
+
+../rtl/axi2apb.sv
+../rtl/axi2apb_64_32.sv
+../rtl/axi2apb_wrap.sv
+
+../tb/smoke_tb.sv
