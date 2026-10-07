@@ -37,8 +37,10 @@ class apb_monitor extends uvm_monitor;
 
             @(posedge apb_vif.clk);
 
-            // APB ACCESS phase
-            if (apb_vif.psel && apb_vif.penable) begin
+            // Sample only the completing edge of the ACCESS phase
+            // (PSEL && PENABLE && PREADY). Triggering on PENABLE alone
+            // reported every transfer twice, which desynced the scoreboard.
+            if (apb_vif.psel && apb_vif.penable && apb_vif.pready) begin
 
                 apb_transaction tr;
 
@@ -50,9 +52,6 @@ class apb_monitor extends uvm_monitor;
                 tr.write = apb_vif.pwrite;
                 tr.data  = apb_vif.pwdata;
                 tr.strb  = 4'b1111;
-
-                // Wait until APB slave responds
-                wait (apb_vif.pready);
 
                 tr.rdata  = apb_vif.prdata;
                 tr.slverr = apb_vif.pslverr;

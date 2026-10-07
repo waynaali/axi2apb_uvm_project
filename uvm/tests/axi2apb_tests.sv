@@ -15,6 +15,8 @@ class axi2apb_test extends uvm_test;
     virtual function void build_phase(uvm_phase phase);
         super.build_phase(phase);
 
+        uvm_top.set_timeout(100us, 0);
+
         env = axi2apb_env::type_id::create(
             "env",
             this

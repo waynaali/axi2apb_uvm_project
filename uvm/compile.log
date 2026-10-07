@@ -1,7 +1,7 @@
 Command: vcs -full64 -sverilog -timescale=1ns/1ps -debug_access+all -ntb_opts uvm-1.2 \
 -kdb -lca -l compile.log -f build.flist -top uvm_tb
                          Chronologic VCS (TM)
-         Version L-2016.06_Full64 -- Tue Oct  6 21:03:32 2026
+         Version L-2016.06_Full64 -- Thu Oct  8 00:57:36 2026
                Copyright (c) 1991-2016 by Synopsys Inc.
                          ALL RIGHTS RESERVED
 
@@ -345,24 +345,62 @@ Parsing design file 'env/axi2apb_env.sv'
 Parsing design file 'tests/axi2apb_tests.sv'
 Top Level Modules:
        uvm_tb
+TimeScale is 1 ns / 1 ps
 
-Error-[SV-UIOT] Undefined interface or type
-apb/apb_driver.sv, 5
-apb_if, "apb_vif"
-  The definition for the forward-referenced interface 'apb_if' is missing or 
-  'apb_if' is the name of an undefined user type.
-  Check to see if the interface definition file/work library is missing or the
-  definition of the user type is missing.
+Warning-[TFIPC] Too few instance port connections
+../rtl/includes/axi_single_slice.sv, 37
+"fifo #(.FALL_THROUGH(1'b0), .DATA_WIDTH(DATA_WIDTH), .DEPTH(BUFFER_DEPTH)) i_fifo( .clk_i (clk_i),  .rst_ni (rst_ni),  .flush_i (1'b0),  .testmode_i (testmode_i),  .full_o (full),  .empty_o (empty),  .data_i (data_i),  .push_i ((valid_i & ready_o)),  .data_o (data_o),  .pop_i ((ready_i & valid_o)));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
 
 
-Error-[SV-UIOT] Undefined interface or type
-apb/apb_driver.sv, 15
-apb_if, "anonymous_type"
-  The definition for the forward-referenced interface 'apb_if' is missing or 
-  'apb_if' is the name of an undefined user type.
-  Check to see if the interface definition file/work library is missing or the
-  definition of the user type is missing.
+Warning-[TFIPC] Too few instance port connections
+../rtl/includes/axi_single_slice.sv, 37
+"fifo #(.FALL_THROUGH(1'b0), .DATA_WIDTH(DATA_WIDTH), .DEPTH(BUFFER_DEPTH)) i_fifo( .clk_i (clk_i),  .rst_ni (rst_ni),  .flush_i (1'b0),  .testmode_i (testmode_i),  .full_o (full),  .empty_o (empty),  .data_i (data_i),  .push_i ((valid_i & ready_o)),  .data_o (data_o),  .pop_i ((ready_i & valid_o)));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
 
-1 warning
-2 errors
-CPU time: 4.924 seconds to compile
+
+Warning-[TFIPC] Too few instance port connections
+../rtl/includes/axi_single_slice.sv, 37
+"fifo #(.FALL_THROUGH(1'b0), .DATA_WIDTH(DATA_WIDTH), .DEPTH(BUFFER_DEPTH)) i_fifo( .clk_i (clk_i),  .rst_ni (rst_ni),  .flush_i (1'b0),  .testmode_i (testmode_i),  .full_o (full),  .empty_o (empty),  .data_i (data_i),  .push_i ((valid_i & ready_o)),  .data_o (data_o),  .pop_i ((ready_i & valid_o)));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[TFIPC] Too few instance port connections
+../rtl/includes/axi_single_slice.sv, 37
+"fifo #(.FALL_THROUGH(1'b0), .DATA_WIDTH(DATA_WIDTH), .DEPTH(BUFFER_DEPTH)) i_fifo( .clk_i (clk_i),  .rst_ni (rst_ni),  .flush_i (1'b0),  .testmode_i (testmode_i),  .full_o (full),  .empty_o (empty),  .data_i (data_i),  .push_i ((valid_i & ready_o)),  .data_o (data_o),  .pop_i ((ready_i & valid_o)));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+Starting vcs inline pass...
+10 unique modules to generate
+10 modules and 0 UDP read. 
+	However, due to incremental compilation, only 3 modules need to be compiled. 
+recompiling package vcs_paramclassrepository
+recompiling package _vcs_unit__2034426705
+recompiling package uvm_pkg
+All of 3 modules done
+make[1]: Entering directory '/mnt/mydata/axi2apb_uvm_project/uvm/csrc'
+rm -f _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
+ld -shared  -o .//../simv.daidir//_csrc0.so objs/amcQw_d.o 
+rm -f _csrc0.so
+if [ -x ../simv ]; then chmod -x ../simv; fi
+g++  -o ../simv   -Wl,-rpath-link=./ -Wl,-rpath='$ORIGIN'/simv.daidir/ -Wl,-rpath=./simv.daidir/ \
+-Wl,-rpath='$ORIGIN'/simv.daidir//scsim.db.dir  -rdynamic  uvm_dpi.o   amcQwB.o  \
+_8683_archive_1.so _prev_archive_1.so _csrc0.so  SIM_l.o  _csrc0.so    rmapats_mop.o \
+rmapats.o rmar.o  rmar_llvm_0_1.o rmar_llvm_0_0.o          /usr/synopsys/vcs-L-2016.06/linux64/lib/libzerosoft_rt_stubs.so \
+/usr/synopsys/vcs-L-2016.06/linux64/lib/libvirsim.so /usr/synopsys/vcs-L-2016.06/linux64/lib/liberrorinf.so \
+/usr/synopsys/vcs-L-2016.06/linux64/lib/libsnpsmalloc.so    /usr/synopsys/vcs-L-2016.06/linux64/lib/libvcsnew.so \
+/usr/synopsys/vcs-L-2016.06/linux64/lib/libsimprofile.so /usr/synopsys/vcs-L-2016.06/linux64/lib/libuclinative.so \
+-Wl,-whole-archive /usr/synopsys/vcs-L-2016.06/linux64/lib/libvcsucli.so -Wl,-no-whole-archive \
+./../simv.daidir/vc_hdrs.o    /usr/synopsys/vcs-L-2016.06/linux64/lib/vcs_save_restore_new.o \
+-ldl  -lc -lm -lpthread -ldl 
+../simv up to date
+make[1]: Leaving directory '/mnt/mydata/axi2apb_uvm_project/uvm/csrc'
+CPU time: 33.595 seconds to compile + 1.291 seconds to elab + 2.107 seconds to link
