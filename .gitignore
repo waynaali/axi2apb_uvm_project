@@ -1,0 +1,15 @@
+csrc/
+simv*
+*.log
+*.vpd
+*.vcd
+ucli.key
+DVEfiles/
+vc_hdrs.h
+*.daidir/
+# Generated simulator/build/coverage output
+scripts/out/
+coverage/
+results/generated/
+logs/generated/
+*.vdb/
