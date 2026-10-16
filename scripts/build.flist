@@ -1,6 +1,8 @@
+// ---- Interfaces ----
 ../tb/interfaces/axi_bus.sv
 ../tb/interfaces/apb_bus.sv
 
+// ---- RTL ----
 ../rtl/includes/fifo.sv
 ../rtl/includes/axi_single_slice.sv
 ../rtl/includes/axi_aw_buffer.sv
@@ -15,21 +17,28 @@
 ../rtl/axi2apb_64_32.sv
 ../rtl/axi2apb_wrap.sv
 
-
+// ---- transactions ----
 ../sequences/axi_transaction.sv
-../sequences/axi2apb_sequences.sv
-../sequences/axi_random_seq.sv
+../sequences/apb_transaction.sv
+
+// ---- sequencers ----
 ../sequences/axi_sequencer.sv
+../sequences/apb_sequencer.sv
+
+// ---- sequence library ----
+../sequences/axi2apb_seq_lib.sv
+
+// ---- AXI agent ----
 ../uvm/axi/axi_driver.sv
 ../uvm/axi/axi_monitor.sv
 ../uvm/axi/axi_agent.sv
-../sequences/apb_transaction.sv
-../sequences/apb_sequencer.sv
-../sequences/apb_response_sequence.sv
-../sequences/axi2apb_virtual_sequence.sv
+
+// ---- APB agent ----
 ../uvm/apb/apb_driver.sv
 ../uvm/apb/apb_monitor.sv
 ../uvm/apb/apb_agent.sv
+
+// ---- env, checkers, tests ----
 ../uvm/scoreboard/axi2apb_scoreboard.sv
 ../uvm/coverage/axi2apb_coverage.sv
 ../uvm/env/axi2apb_env.sv
