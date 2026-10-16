@@ -1,1 +1,0 @@
-`existing_smoke_sim.log` is preserved historical evidence from the supplied archive. It shows a prior `axi2apb_test` smoke run with AXI write/read data matches, scoreboard PASS=2/FAIL=0, and no UVM errors. It predates the newly added testbench code and must not be interpreted as proof that the new assertions, random test, or priority test have passed.
